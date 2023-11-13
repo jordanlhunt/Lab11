@@ -46,7 +46,7 @@ namespace Lab11
             }
 
             currentMouseState = Mouse.GetState();
-            HandleMouseState(currentMouseState);
+           
             previousMouseButtonState = currentMouseState.LeftButton;
             exploision.Update(gameTime);
             base.Update(gameTime);
@@ -67,15 +67,18 @@ namespace Lab11
         {
             CheckPlayerClick(player.GetCurrentPositionRectangle(), currentMouseState);
         }
-        private void CheckPlayerClick(Rectangle playerRectangle, MouseState curerntMouseState)
+        private bool CheckPlayerClick(Rectangle playerRectangle, MouseState curerntMouseState)
         {
             int mouseX = currentMouseState.Position.X;
             int mouseY = currentMouseState.Position.Y;
             ButtonState mouseLeftButton = currentMouseState.LeftButton;
             if (playerRectangle.Contains(currentMouseState.Position) && mouseLeftButton == ButtonState.Released && previousMouseButtonState == ButtonState.Pressed)
             {
-                player.IsActive = false;
-                exploision.Play(playerRectangle.X, playerRectangle.Y);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
